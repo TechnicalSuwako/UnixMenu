@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=um
+GenericName=Just launcher
+GenericName[ja]=只のラウンチャー
+Exec=um %F
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;Utility;System;DeskopUtility;
