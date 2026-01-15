@@ -17,6 +17,7 @@ Visual *visual;
 
 const char *sofname = "um";
 const char *version = "0.2.1";
+const char *disname = "Unix Menu";
 
 int main() {
   Display *display;
@@ -56,6 +57,20 @@ int main() {
 
   XChangeProperty(display, window, net_wm_window_type, XA_ATOM, 32,
       PropModeReplace, (unsigned char *)&dialog, 1);
+
+  XStoreName(display, window, disname);
+  Atom net_wm_name = XInternAtom(display, "_NET_WM_NAME", False);
+  XChangeProperty(display, window, net_wm_name,
+      XInternAtom(display, "UTF8_STRING", False), 8,
+      PropModeReplace, (unsigned char *)disname, strlen(disname));
+
+  XClassHint *classHint = XAllocClassHint();
+  if (classHint) {
+    classHint->res_name = "um";
+    classHint->res_class = "UnixMenu";
+    XSetClassHint(display, window, classHint);
+    XFree(classHint);
+  }
 
   XSetWindowBackground(display, window, BGCOL);
 
