@@ -45,12 +45,12 @@ CFLAGS += -I/usr/local/include -I/usr/local/include/X11\
 CFLAGS += -I/usr/include/freetype2
 .endif
 
-LDFLAGS = -lc -lX11 -lXft
+LDFLAGS = -lc -lX11 -lXft -lsys
 SLIB = -lxcb
 .if ${OS} == "openbsd"
 SLIB += -lfontconfig -lz -lexpat -lfreetype -lXrender -lXau -lXdmcp
 .elif ${OS} == "freebsd"
-SLIB += -lthr -lfontconfig -lfreetype -lXrender -lXau -lXdmcp -lexpat -lz -lbz2\
+SLIB += -lthr -lfontconfig -lintl -lfreetype -lXrender -lXau -lXdmcp -lexpat -lz -lbz2\
 				-lpng16 -lbrotlidec -lm -lbrotlicommon
 .elif ${OS} == "netbsd"
 SLIB += -lfontconfig -lfreetype -lXau -lXdmcp -lgcc -lexpat -lz -lbz2 -lXrandr\

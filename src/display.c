@@ -6,16 +6,17 @@ int topidx = 0;
 
 void drawtext(
   Display *display, Window window, GC gc, int x, int y, const char *text, int sel) {
+  XftColor *fgCol = (sel) ? &selcolor : &color;
   if (sel) {
-    XSetForeground(display, gc, BLACK);
+    XSetForeground(display, gc, BGSEL);
     XFillRectangle(
         display, window, gc, 0, y - item_height + 5, window_width, item_height);
-    XSetForeground(display, gc, BLACK);
+    XSetForeground(display, gc, BGCOL);
   } else {
-    XSetForeground(display, gc, WHITE);
+    XSetForeground(display, gc, FGSEL);
   }
 
-  XftDrawStringUtf8(draw, &color, font, x, y, (const FcChar8 *)text, strlen(text));
+  XftDrawStringUtf8(draw, fgCol, font, x, y, (const FcChar8 *)text, strlen(text));
 }
 
 void filterdisplay(

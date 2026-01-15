@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <X11/Xatom.h>
+
 #include "src/control.h"
 #include "src/program.h"
 #include "src/display.h"
@@ -14,7 +16,7 @@ XftFont *font;
 Visual *visual;
 
 const char *sofname = "um";
-const char *version = "0.2.0";
+const char *version = "0.2.1";
 
 int main() {
   Display *display;
@@ -44,10 +46,16 @@ int main() {
   int window_y = (screen_height - window_height) / 2;
 
   window = XCreateSimpleWindow(display, RootWindow(display, screen),
-      window_x, window_y, window_width, window_height, 1, BLACK, BLACK);
+      window_x, window_y, window_width, window_height, 1, FGCOL, FGCOL);
   if (!window) {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
   }
+
+  Atom net_wm_window_type = XInternAtom(display, "_NET_WM_WINDOW_TYPE", False);
+  Atom dialog = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DIALOG", False);
+
+  XChangeProperty(display, window, net_wm_window_type, XA_ATOM, 32,
+      PropModeReplace, (unsigned char *)&dialog, 1);
 
   XSetWindowBackground(display, window, BGCOL);
 
@@ -84,12 +92,12 @@ int main() {
     exit(1);
   }
 
-  if (!XftColorAllocName(display, visual, colormap, "white", &color)) {
+  if (!XftColorAllocName(display, visual, colormap, "#ee4030", &color)) {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
     fprintf(stderr, "色の役割に失敗。\n");
   }
 
-  if (!XftColorAllocName(display, visual, colormap, "black", &selcolor)) {
+  if (!XftColorAllocName(display, visual, colormap, "#120f12", &selcolor)) {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
     fprintf(stderr, "選択色の役割に失敗。\n");
   }

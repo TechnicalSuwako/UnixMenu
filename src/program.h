@@ -8,9 +8,10 @@
 #define MAX_NAME_LEN 256
 #define MAX_LINE_LENGTH 256
 
-#define WHITE 0xfcfcfc
-#define BLACK 0x120f12
-#define BGCOL 0x550f75
+#define FGCOL 0xb61729
+#define FGSEL 0x120f12
+#define BGSEL 0xf35869
+#define BGCOL 0x232023
 
 typedef struct {
   char name[MAX_NAME_LEN];
