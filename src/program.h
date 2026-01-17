@@ -8,10 +8,17 @@
 #define MAX_NAME_LEN 256
 #define MAX_LINE_LENGTH 256
 
+#if defined(__OpenBSD__)
+#define FGCOL 0xb8b515
+#define FGSEL 0x12120f
+#define BGSEL 0xf2ea57
+#define BGCOL 0x232320
+#elif defined(__FreeBSD__)
 #define FGCOL 0xb61729
-#define FGSEL 0x120f12
+#define FGSEL 0x120f0f
 #define BGSEL 0xf35869
-#define BGCOL 0x232023
+#define BGCOL 0x232020
+#endif
 
 typedef struct {
   char name[MAX_NAME_LEN];

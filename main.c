@@ -107,15 +107,27 @@ int main() {
     exit(1);
   }
 
+#if defined(__OpenBSD__)
+  if (!XftColorAllocName(display, visual, colormap, "#f1ed25", &color)) {
+    cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
+    fprintf(stderr, "色の役割に失敗。\n");
+  }
+
+  if (!XftColorAllocName(display, visual, colormap, "#12120f", &selcolor)) {
+    cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
+    fprintf(stderr, "選択色の役割に失敗。\n");
+  }
+#elif defined(__OpenBSD__)
   if (!XftColorAllocName(display, visual, colormap, "#ee4030", &color)) {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
     fprintf(stderr, "色の役割に失敗。\n");
   }
 
-  if (!XftColorAllocName(display, visual, colormap, "#120f12", &selcolor)) {
+  if (!XftColorAllocName(display, visual, colormap, "#120f0f", &selcolor)) {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
     fprintf(stderr, "選択色の役割に失敗。\n");
   }
+#endif
 
   XMapWindow(display, window);
 
