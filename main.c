@@ -117,7 +117,7 @@ int main() {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
     fprintf(stderr, "選択色の役割に失敗。\n");
   }
-#elif defined(__OpenBSD__)
+#elif defined(__FreeBSD__)
   if (!XftColorAllocName(display, visual, colormap, "#ee4030", &color)) {
     cleanup(display, window, gc, &color, &selcolor, draw, font, colormap, visual);
     fprintf(stderr, "色の役割に失敗。\n");
